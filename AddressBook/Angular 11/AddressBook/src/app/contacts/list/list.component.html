@@ -1,0 +1,29 @@
+<h1>Contacts</h1>
+<a routerLink="add" class="btn btn-sm btn-success mb-2">Add User</a>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width: 30%">Id</th>
+            <th style="width: 30%">Name</th>
+            <th style="width: 30%">Email</th>
+            <th style="width: 30%">Date of Birth</th>
+            <th style="width: 10%"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let contact of contacts">
+            <td>{{contact.id}}</td>
+            <td>{{contact.firstName}} {{contact.surName}}</td>
+            <td>{{contact.email}}</td>
+            <td>{{contact.dateOfBirth}}</td>
+            <td style="white-space: nowrap">
+                <a routerLink="edit/{{contact.id}}" class="btn btn-sm btn-primary mr-1">Edit</a>                
+            </td>
+        </tr>
+        <tr *ngIf="!contacts">
+            <td colspan="4" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table> 

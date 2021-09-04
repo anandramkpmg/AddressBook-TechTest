@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\projects\\techtest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj": {}
+    "C:\\Users\\aanan\\OneDrive\\Documents\\GitHub\\AddressBook-TechTest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj": {}
   },
   "projects": {
-    "C:\\projects\\techtest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj": {
+    "C:\\Users\\aanan\\OneDrive\\Documents\\GitHub\\AddressBook-TechTest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\projects\\techtest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj",
+        "projectUniqueName": "C:\\Users\\aanan\\OneDrive\\Documents\\GitHub\\AddressBook-TechTest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj",
         "projectName": "AddressBook.WebAPI",
-        "projectPath": "C:\\projects\\techtest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj",
+        "projectPath": "C:\\Users\\aanan\\OneDrive\\Documents\\GitHub\\AddressBook-TechTest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI.csproj",
         "packagesPath": "C:\\Users\\aanan\\.nuget\\packages\\",
-        "outputPath": "C:\\projects\\techtest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\obj\\",
+        "outputPath": "C:\\Users\\aanan\\OneDrive\\Documents\\GitHub\\AddressBook-TechTest\\AddressBook\\WebAPI\\AddressBook.WebAPI\\AddressBook.WebAPI\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\aanan\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -1,0 +1,46 @@
+<h1 *ngIf="isAddMode">Add User</h1>
+<h1 *ngIf="!isAddMode">Edit User</h1>
+<form [formGroup]="form" (ngSubmit)="onSubmit()">    
+    <div class="form-row">       
+        <div class="form-group col-3">
+            <label>First Name</label>
+            <input type="text" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" />
+            <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                <div *ngIf="f.firstName.errors.required">First Name is required</div>
+            </div>
+        </div>
+        <div class="form-group col-3">
+            <label>Last Name</label>
+            <input type="text" formControlName="surName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.surName.errors }" />
+            <div *ngIf="submitted && f.surName.errors" class="invalid-feedback">
+                <div *ngIf="f.surName.errors.required">Sur Name is required</div>
+            </div>
+        </div>
+    </div>
+    <div class="form-row">
+        <div class="form-group col-3">
+            <label>Email</label>
+            <input type="text" formControlName="email" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.email.errors }" />
+            <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                <div *ngIf="f.email.errors.required">Email is required</div>
+                <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+            </div>
+        </div>
+        <div class="form-group col-3">            
+            <mat-form-field>
+                <mat-label>Date of Birth</mat-label>
+                <input matInput [matDatepicker]="dobpicker" formControlName="dateOfBirth" [max]="maxDate">
+                <mat-datepicker-toggle matSuffix [for]="dobpicker"></mat-datepicker-toggle>
+                <mat-datepicker #dobpicker ></mat-datepicker>
+            </mat-form-field>   
+        </div>
+    </div>   
+    <div class="form-group">
+        <button [disabled]="loading" class="btn btn-primary">
+            <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+            Save
+        </button>
+        <a routerLink="/contacts" class="btn btn-link">Cancel</a>
+    </div>
+   
+</form>
