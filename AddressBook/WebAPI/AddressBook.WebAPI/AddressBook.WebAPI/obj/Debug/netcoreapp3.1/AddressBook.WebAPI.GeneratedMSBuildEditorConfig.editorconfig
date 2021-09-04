@@ -1,0 +1,3 @@
+is_global = true
+build_property.RootNamespace = AddressBook.WebAPI
+build_property.ProjectDir = C:\projects\techtest\AddressBook\WebAPI\AddressBook.WebAPI\AddressBook.WebAPI\
