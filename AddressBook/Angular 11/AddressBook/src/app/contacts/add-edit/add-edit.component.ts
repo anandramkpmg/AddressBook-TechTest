@@ -34,7 +34,7 @@ export class AddEditComponent implements OnInit {
     const formOptions: AbstractControlOptions = {
     };
     this.form = this.formBuilder.group({
-      firstName: ['', Validators.required],
+      firstName: ['', Validators.compose([Validators.required])],
       surName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       id: this.id == null ? 0 : this.id,

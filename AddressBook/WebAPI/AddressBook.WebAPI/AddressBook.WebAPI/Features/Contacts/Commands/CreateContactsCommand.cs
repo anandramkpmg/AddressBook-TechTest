@@ -1,7 +1,11 @@
 ﻿using AddressBook.WebAPI.Context;
+using AddressBook.WebAPI.Exceptions;
 using AddressBook.WebAPI.Models;
 using MediatR;
 using System;
+using System.Linq;
+using System.Net;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -24,6 +28,11 @@ namespace AddressBook.WebAPI.Features.Contacts.Commands
             }
             public async Task<int> Handle(CreateContactsCommand command, CancellationToken cancellationToken)
             {
+                if (_context.Contacts.Any(x => x.Email.ToLower() == command.Email.ToLower()))
+                {
+                    throw new ContactExistsException(string.Format("User contact already exists with the email id {0}", command.Email));
+                }
+
                 var contact = new Contact
                 {
                     FirstName = command.FirstName,
