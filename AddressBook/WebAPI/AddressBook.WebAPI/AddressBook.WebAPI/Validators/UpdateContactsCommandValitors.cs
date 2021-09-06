@@ -19,7 +19,7 @@ namespace AddressBook.WebAPI.Validators
 
         private bool IsDateInPast(DateTime date)
         {
-            return DateTime.Today > date;
+            return date < DateTime.Today;
         }
     }
 }

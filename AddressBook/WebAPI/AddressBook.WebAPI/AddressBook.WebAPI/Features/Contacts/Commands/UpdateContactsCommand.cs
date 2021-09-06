@@ -1,4 +1,5 @@
 ﻿using AddressBook.WebAPI.Context;
+using AddressBook.WebAPI.Exceptions;
 using MediatR;
 using System;
 using System.Linq;

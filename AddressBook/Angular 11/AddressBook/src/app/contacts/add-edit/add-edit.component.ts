@@ -5,6 +5,7 @@ import { first } from 'rxjs/operators';
 
 import { ContactService } from '../../services/contact.service';
 import { AlertService } from 'src/app/services/alert.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-edit',
@@ -18,8 +19,7 @@ export class AddEditComponent implements OnInit {
   loading = false;
   submitted = false;
   dateTime = new Date();
-  //maxDate = new Date(2021, 8, 4);
-  maxDate = new Date();
+  maxDate = new Date(this.dateTime.getUTCFullYear(), this.dateTime.getUTCMonth(), this.dateTime.getUTCDate() - 1);
 
   constructor(private formBuilder: FormBuilder,
     private route: ActivatedRoute,
@@ -70,24 +70,31 @@ export class AddEditComponent implements OnInit {
   }
 
   private createUser() {
-    console.log(this.form.value);
+    this.form.value.dateOfBirth = this.getDate();    
     this.contactService.create(this.form.value)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('User added', { keepAfterRouteChange: true });
+        this.alertService.success('Contact added', { keepAfterRouteChange: true });
         this.router.navigate(['../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
   }
 
-  private updateUser() {
-    console.log(this.form.value);
+  private updateUser() {    
+    this.form.value.dateOfBirth = this.getDate();
     this.contactService.update(this.id, this.form.value)
       .pipe(first())
       .subscribe(() => {
-        this.alertService.success('User updated', { keepAfterRouteChange: true });
+        this.alertService.success('Contact updated', { keepAfterRouteChange: true });
         this.router.navigate(['../../'], { relativeTo: this.route });
       })
       .add(() => this.loading = false);
+  }
+
+  private getDate() {
+    const selectedDob = new Date(this.form.value.dateOfBirth);
+    const _ = moment();
+    const date = moment(selectedDob).add({hours: _.hour(), minutes:_.minute() , seconds:_.second()});
+    return date.toDate();
   }
 }

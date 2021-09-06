@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Contact } from '../models/contact';
+import { environment } from 'src/environments/environment';
 
-const baseUrl = `https://localhost:44357/contacts`;
+const baseUrl = `${environment.apiUrl}/contacts`;
 
 @Injectable({ providedIn: 'root' })
 export class ContactService {

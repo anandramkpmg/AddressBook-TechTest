@@ -9,7 +9,7 @@ const routes: Routes = [
   { path: 'contacts', loadChildren: contactsModule },
 
     // otherwise redirect to home
-    { path: '**', redirectTo: '' }
+    { path: '**', redirectTo: 'contacts' }
 ];
 
 @NgModule({
