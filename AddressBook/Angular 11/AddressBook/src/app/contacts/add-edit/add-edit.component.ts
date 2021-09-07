@@ -5,7 +5,6 @@ import { first } from 'rxjs/operators';
 
 import { ContactService } from '../../services/contact.service';
 import { AlertService } from 'src/app/services/alert.service';
-import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-edit',
@@ -91,10 +90,12 @@ export class AddEditComponent implements OnInit {
       .add(() => this.loading = false);
   }
 
-  private getDate() {
-    const selectedDob = new Date(this.form.value.dateOfBirth);
-    const _ = moment();
-    const date = moment(selectedDob).add({hours: _.hour(), minutes:_.minute() , seconds:_.second()});
-    return date.toDate();
+  private getDate()
+  {
+    const selectedDate =  new Date(this.form.value.dateOfBirth);
+    const today = new Date();
+    const correctDate = new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), today.getHours(), today.getMinutes(), today.getSeconds());
+    console.log("Fixed Date", correctDate);
+    return correctDate;
   }
 }

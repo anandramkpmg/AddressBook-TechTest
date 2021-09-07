@@ -10,7 +10,7 @@ namespace AddressBook.WebAPI.Controllers
     [Route("[controller]")]
     public class ContactsController : ControllerBase
     {
-        private IMediator _mediator;
+        private readonly IMediator _mediator;
         public ContactsController(IMediator mediator)
         {
             _mediator = mediator;

@@ -4,6 +4,7 @@ using MediatR;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace AddressBook.WebAPI.Features.Contacts.Queries
 {
@@ -21,9 +22,7 @@ namespace AddressBook.WebAPI.Features.Contacts.Queries
             }
             public async Task<Contact> Handle(GetContactByIdQuery query, CancellationToken cancellationToken)
             {
-                var product = _context.Contacts.Where(a => a.Id == query.Id).FirstOrDefault();
-                if (product == null) return null;
-                return product;
+                return await _context.Contacts.FirstOrDefaultAsync(a => a.Id == query.Id, cancellationToken: cancellationToken);
             }
         }
     }

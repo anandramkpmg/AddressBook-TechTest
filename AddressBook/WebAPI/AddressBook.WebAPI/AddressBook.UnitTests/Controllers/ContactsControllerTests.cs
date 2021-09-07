@@ -14,10 +14,6 @@ namespace AddressBook.UnitTests.Controllers
 {
     public class ContactsControllerTests
     {
-        public ContactsControllerTests()
-        {
-        }
-
         [Fact]
         public async void GetContactById_ValidRequest_ReturnsValidContact()
         {
@@ -47,7 +43,7 @@ namespace AddressBook.UnitTests.Controllers
             // assert
             Assert.NotNull(okResult);
             Assert.Equal(200, okResult.StatusCode);
-            Assert.True(((Contact)okResult.Value).Id == contact.Id);
+            Assert.Equal(((Contact)okResult.Value).Id, contact.Id);
         }
 
 
@@ -58,16 +54,17 @@ namespace AddressBook.UnitTests.Controllers
 
             var controller = new ContactsController(mockMediator.Object);
 
-            var contacts = new List<Contact>(1);
-
-            contacts.Add(new Contact
+            var contacts = new List<Contact>(1)
             {
-                FirstName = "Alpha",
-                SurName = "A",
-                Email = "test@gmail.com",
-                DateOfBirth = DateTime.Today,
-                Id = 1
-            });
+                new Contact
+                {
+                    FirstName = "Alpha",
+                    SurName = "A",
+                    Email = "test@gmail.com",
+                    DateOfBirth = DateTime.Today,
+                    Id = 1
+                }
+            };
 
             mockMediator
             .Setup(m => m.Send(It.IsAny<GetAllContactsQuery>(), It.IsAny<CancellationToken>()))
@@ -82,7 +79,7 @@ namespace AddressBook.UnitTests.Controllers
             // assert
             Assert.NotNull(okResult);
             Assert.Equal(200, okResult.StatusCode);
-            Assert.True(((ICollection<Contact>)okResult.Value).Count == 1);
+            Assert.Equal(1, ((ICollection<Contact>)okResult.Value).Count);
         }
 
         [Fact]
@@ -116,7 +113,7 @@ namespace AddressBook.UnitTests.Controllers
             // assert
             Assert.NotNull(okResult);
             Assert.Equal(200, okResult.StatusCode);
-            Assert.True(((int)okResult.Value) == 1);
+            Assert.Equal(1, (int)okResult.Value);
         }
 
         [Fact]
@@ -148,7 +145,7 @@ namespace AddressBook.UnitTests.Controllers
             // assert
             Assert.NotNull(okResult);
             Assert.Equal(200, okResult.StatusCode);
-            Assert.True(((int)okResult.Value) == 1);
+            Assert.Equal(1, ((int)okResult.Value));
         }
 
         [Fact]
@@ -178,7 +175,7 @@ namespace AddressBook.UnitTests.Controllers
             // assert
             var badRequest = result as BadRequestResult;
             var okResult = result as OkObjectResult;
-            mockMediator.Verify(x => x.Send(It.IsAny<CreateContactsCommand>(), It.IsAny<CancellationToken>()), Times.Never);            
+            mockMediator.Verify(x => x.Send(It.IsAny<CreateContactsCommand>(), It.IsAny<CancellationToken>()), Times.Never);
             Assert.Null(okResult);
             Assert.Equal(400, badRequest.StatusCode);
         }

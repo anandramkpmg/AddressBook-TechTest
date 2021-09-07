@@ -6,6 +6,7 @@ namespace AddressBook.WebAPI.Validators
 {
     public class CreateContactsCommandValidator : AbstractValidator<CreateContactsCommand>
     {
+        //TO DO: Make Create and update in to one validator
         public CreateContactsCommandValidator()
         {
             RuleFor(c => c.FirstName).NotEmpty().WithMessage("First Name is required.");
@@ -17,10 +18,9 @@ namespace AddressBook.WebAPI.Validators
             RuleFor(c => c.Email).EmailAddress().WithMessage("Email address should be in valid format.");
         }
 
-        private bool IsDateInPast(DateTime date)
+        private static bool IsDateInPast(DateTime date)
         {
             return date < DateTime.Today;
         }
     }
 }
-

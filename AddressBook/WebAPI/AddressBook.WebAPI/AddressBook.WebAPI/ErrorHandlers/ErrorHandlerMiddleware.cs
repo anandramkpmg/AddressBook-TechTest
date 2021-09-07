@@ -32,12 +32,12 @@ namespace AddressBook.WebAPI.ErrorHandlers
 
                 switch (error)
                 {
-                    case ContactExistsException e:
+                    case ContactExistsException _:
                         // custom application error
                         response.StatusCode = (int)HttpStatusCode.Conflict;
                         break;
 
-                    case KeyNotFoundException e:
+                    case KeyNotFoundException _:
                         // not found error
                         response.StatusCode = (int)HttpStatusCode.NotFound;
                         break;

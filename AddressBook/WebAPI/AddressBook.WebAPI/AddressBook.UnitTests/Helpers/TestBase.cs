@@ -1,4 +1,5 @@
-﻿using AddressBook.WebAPI.Models;
+﻿using System;
+using AddressBook.WebAPI.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,5 +23,18 @@ namespace AddressBook.UnitTests.Helpers
 
             return builder.Options;
         }
+
+        protected Contact GetContact(int id, string firstName, string surName, string email, DateTime dob)
+        {
+            return new Contact
+            {
+                Id = id,
+                FirstName = firstName,
+                SurName = surName,
+                Email = email,
+                DateOfBirth = dob,
+            };
+        }
+
     }
 }

@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace AddressBook.WebAPI.ErrorHandlers
+﻿namespace AddressBook.WebAPI.ErrorHandlers
 {
     public class ApiResponse<T>
     {

@@ -12,32 +12,27 @@ namespace AddressBook.UnitTests.Commands
 {
     public class CreateContactsCommandTests : TestBase
     {
+
         [Fact]
         public async void CreateContactsCommand_NoDuplicateEmailFound_CandidateAdded()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                context.Contacts.Add(GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today));
 
                 await context.SaveChangesAsync();
 
                 var handler = new CreateContactsCommandHandler(context);
 
+                var contact2 = GetContact(2, "Beta", "B", "test1@gmail.com", DateTime.Today);
+
                 var command = new CreateContactsCommand
                 {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
+                    FirstName = contact2.FirstName,
+                    SurName = contact2.SurName,
+                    Email = contact2.Email,
+                    DateOfBirth = contact2.DateOfBirth,
+                    Id = contact2.Id
                 };
 
                 Assert.True(context.Contacts.Count() == 1);
@@ -46,13 +41,16 @@ namespace AddressBook.UnitTests.Commands
 
                 Assert.True(context.Contacts.Count() == 2);
 
-                var addedContact = context.Contacts.FirstOrDefault(x => x.Id == id);
+                var addedContact = context.Contacts.First(x => x.Id == id);
 
-                Assert.True(addedContact.Id == 2);
-                Assert.True(addedContact.FirstName == "Beta");
-                Assert.True(addedContact.SurName == "B");
-                Assert.True(addedContact.Email == "test1@gmail.com");
-                Assert.True(addedContact.DateOfBirth == DateTime.Today);
+                // TO DO : Override equals operator
+                //Assert.True(addedContact.Equals(contact2));
+
+                Assert.True(addedContact.Id == contact2.Id);
+                Assert.True(addedContact.FirstName == contact2.FirstName);
+                Assert.True(addedContact.SurName == contact2.SurName);
+                Assert.True(addedContact.Email == contact2.Email);
+                Assert.True(addedContact.DateOfBirth == contact2.DateOfBirth);
             }
         }
 
@@ -61,31 +59,26 @@ namespace AddressBook.UnitTests.Commands
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                context.Contacts.Add(GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today));
 
                 await context.SaveChangesAsync();
 
                 var handler = new CreateContactsCommandHandler(context);
 
+                var contact2 = GetContact(2, "Beta", "B", "test@gmail.com", DateTime.Today);
+
                 var command = new CreateContactsCommand
                 {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
+                    FirstName = contact2.FirstName,
+                    SurName = contact2.SurName,
+                    Email = contact2.Email,
+                    DateOfBirth = contact2.DateOfBirth,
+                    Id = contact2.Id
                 };
 
-                Assert.True(context.Contacts.Count() == 1);
+                Assert.Single(context.Contacts);
                 _ = Assert.ThrowsAsync<ContactExistsException>(() => handler.Handle(command, new CancellationToken()));
-                Assert.True(context.Contacts.Count() == 1);
+                Assert.Single(context.Contacts);
             }
         }
     }

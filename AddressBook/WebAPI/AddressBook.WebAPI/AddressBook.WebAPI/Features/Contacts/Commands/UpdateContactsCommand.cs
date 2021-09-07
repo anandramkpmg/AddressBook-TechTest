@@ -25,26 +25,24 @@ namespace AddressBook.WebAPI.Features.Contacts.Commands
             }
             public async Task<int> Handle(UpdateContactsCommand command, CancellationToken cancellationToken)
             {                 
-                if (_context.Contacts.Any(x => x.Email.ToLower() == command.Email.ToLower() && x.Id != command.Id))
-                {
-                    throw new ContactExistsException(string.Format("User contact already exists with the email id {0}", command.Email));
-                }
-
-                var contact = _context.Contacts.Where(a => a.Id == command.Id).FirstOrDefault();
+                var contact = _context.Contacts.FirstOrDefault(a => a.Id == command.Id);
 
                 if (contact == null)
                 {
                     return default;
                 }
-                else
+
+                if (_context.Contacts.Any(x => x.Email.ToLower() == command.Email.ToLower() && x.Id != command.Id))
                 {
-                    contact.FirstName = command.FirstName;
-                    contact.SurName = command.SurName;
-                    contact.DateOfBirth = command.DateOfBirth;
-                    contact.Email = command.Email;
-                    await _context.SaveChangesAsync();
-                    return contact.Id;
+                    throw new ContactExistsException($"Contact already exists with the email id: {command.Email}");
                 }
+
+                contact.FirstName = command.FirstName;
+                contact.SurName = command.SurName;
+                contact.DateOfBirth = command.DateOfBirth;
+                contact.Email = command.Email;
+                await _context.SaveChangesAsync();
+                return contact.Id;
             }
         }
     }

@@ -28,7 +28,7 @@ namespace AddressBook.WebAPI.Features.Contacts.Commands
             {
                 if (_context.Contacts.Any(x => x.Email.ToLower() == command.Email.ToLower()))
                 {
-                    throw new ContactExistsException(string.Format("User contact already exists with the email id {0}", command.Email));
+                    throw new ContactExistsException($"Contact already exists with email id: {command.Email}");
                 }
 
                 var contact = new Contact

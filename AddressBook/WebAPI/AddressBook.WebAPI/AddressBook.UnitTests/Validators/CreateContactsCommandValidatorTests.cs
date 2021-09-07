@@ -15,7 +15,8 @@ namespace AddressBook.UnitTests.Validators
         private CreateContactsCommandValidator Validator { get; }
 
         [Fact]
-        public void ValidContacts_PassValidation(){
+        public void ValidContacts_PassValidation()
+        {
 
             var createCommand = new CreateContactsCommand
             {
@@ -25,7 +26,7 @@ namespace AddressBook.UnitTests.Validators
                 DateOfBirth = DateTime.Today.AddDays(-1)
             };
 
-            Assert.True(Validator.Validate(createCommand).IsValid == true);
+            Assert.True(Validator.Validate(createCommand).IsValid);
 
         }
 
@@ -42,9 +43,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "First Name is required.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("First Name is required.", validated.Errors[0].ErrorMessage);
         }
 
         [Fact]
@@ -60,9 +61,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "The First Name must be 100 characters or less.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("The First Name must be 100 characters or less.", validated.Errors[0].ErrorMessage);
 
         }
 
@@ -79,9 +80,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "Sur Name is required.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("Sur Name is required.", validated.Errors[0].ErrorMessage);
         }
 
         [Fact]
@@ -97,9 +98,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "The Sur Name must be 100 characters or less.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("The Sur Name must be 100 characters or less.", validated.Errors[0].ErrorMessage);
         }
 
         [Fact]
@@ -115,9 +116,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "Date of birth should be in the past.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("Date of birth should be in the past.", validated.Errors[0].ErrorMessage);
         }
 
         [Fact]
@@ -133,9 +134,9 @@ namespace AddressBook.UnitTests.Validators
 
             var validated = Validator.Validate(createCommand);
 
-            Assert.True(validated.IsValid == false);
-            Assert.True(validated.Errors.Count == 1);
-            Assert.True(validated.Errors[0].ErrorMessage == "Email address should be in valid format.");
+            Assert.False(validated.IsValid);
+            Assert.Single(validated.Errors);
+            Assert.Equal("Email address should be in valid format.", validated.Errors[0].ErrorMessage);
         }
     }
 }

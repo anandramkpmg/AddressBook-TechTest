@@ -11,31 +11,24 @@ namespace AddressBook.UnitTests.Queries
 {
     public class GetAllContactsQueryTests : TestBase
     {
-        public GetAllContactsQueryTests()
-        {
-        }
 
         [Fact]
         public async void GetAllContactsQuery_ContactsExists_ReturnsAllContacts()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                var actualContact = GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today);
+                context.Contacts.Add(actualContact);
+
+                var contact2 = GetContact(2, "Beta", "B", "test1@gmail.com", DateTime.Today);
 
                 context.Contacts.Add(new Contact
                 {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
+                    FirstName = contact2.FirstName,
+                    SurName = contact2.SurName,
+                    Email = contact2.Email,
+                    DateOfBirth = contact2.DateOfBirth,
+                    Id = contact2.Id
                 });
 
                 await context.SaveChangesAsync();
@@ -46,11 +39,13 @@ namespace AddressBook.UnitTests.Queries
 
                 // Assert
                 var lists = new List<Contact>(contacts);
-                Assert.True(lists.Count == 2);
-                Assert.True(lists[0].FirstName == "Alpha");
-                Assert.True(lists[0].SurName == "A");
-                Assert.True(lists[0].Email == "test@gmail.com");
-                Assert.True(lists[0].DateOfBirth == DateTime.Today);
+                Assert.Equal(2, lists.Count);
+                var contact = lists[0];
+
+                Assert.Equal(actualContact.FirstName, contact.FirstName );
+                Assert.Equal(actualContact.SurName, contact.SurName );
+                Assert.Equal(actualContact.Email, contact.Email );
+                Assert.Equal(actualContact.DateOfBirth, contact.DateOfBirth);
             }
         }
     }

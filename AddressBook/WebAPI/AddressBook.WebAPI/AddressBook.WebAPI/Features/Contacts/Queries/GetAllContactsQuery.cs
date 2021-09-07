@@ -19,7 +19,7 @@ namespace AddressBook.WebAPI.Features.Contacts.Queries
             }
             public async Task<IEnumerable<Contact>> Handle(GetAllContactsQuery query, CancellationToken cancellationToken)
             {
-                var contactsList = await _context.Contacts.ToListAsync();
+                var contactsList = await _context.Contacts.ToListAsync(cancellationToken: cancellationToken);
                 return contactsList.AsReadOnly();
             }
         }

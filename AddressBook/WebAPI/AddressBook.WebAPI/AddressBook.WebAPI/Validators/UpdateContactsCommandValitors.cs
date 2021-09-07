@@ -8,16 +8,16 @@ namespace AddressBook.WebAPI.Validators
     {
         public UpdateContactsCommandValitor()
         {
-            RuleFor(c => c.FirstName).NotEmpty();
-            RuleFor(c => c.FirstName).MaximumLength(100);
-            RuleFor(c => c.SurName).NotEmpty();
-            RuleFor(c => c.SurName).MaximumLength(100);
-            RuleFor(c => c.DateOfBirth).NotEmpty();
+            RuleFor(c => c.FirstName).NotEmpty().WithMessage("First Name is required.");
+            RuleFor(c => c.FirstName).MaximumLength(100).WithMessage("The First Name must be 100 characters or less.");
+            RuleFor(c => c.SurName).NotEmpty().WithMessage("Sur Name is required.");
+            RuleFor(c => c.SurName).MaximumLength(100).WithMessage("The Sur Name must be 100 characters or less.");
+            RuleFor(c => c.DateOfBirth).NotEmpty().WithMessage("Date of Birth is required.");
             RuleFor(c => c.DateOfBirth).Must(IsDateInPast).WithMessage("Date of birth should be in the past.");
-            RuleFor(c => c.Email).EmailAddress();
+            RuleFor(c => c.Email).EmailAddress().WithMessage("Email address should be in valid format.");
         }
 
-        private bool IsDateInPast(DateTime date)
+        private static bool IsDateInPast(DateTime date)
         {
             return date < DateTime.Today;
         }

@@ -14,25 +14,14 @@ namespace AddressBook.UnitTests.Queries
         public async void GetContactById_MatchFound_ReturnsCandidate()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
-            {               
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+            {
+                var contact1 = GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today);
 
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
-                });
+                context.Contacts.Add(contact1);
 
+                var contact2 = GetContact(2, "Beta", "B", "test1@gmail.com", DateTime.Today);
+
+                context.Contacts.Add(contact2);
 
                 await context.SaveChangesAsync();
 
@@ -41,11 +30,11 @@ namespace AddressBook.UnitTests.Queries
                 var contact = await handler.Handle(new GetContactByIdQuery { Id = 1 }, new CancellationToken());
 
                 // Assert
-                Assert.True(contact.Id == 1);
-                Assert.True(contact.FirstName == "Alpha");
-                Assert.True(contact.SurName == "A");
-                Assert.True(contact.Email == "test@gmail.com");
-                Assert.True(contact.DateOfBirth == DateTime.Today);
+                Assert.Equal(contact.Id, contact1.Id);
+                Assert.Equal(contact.FirstName, contact1.FirstName);
+                Assert.Equal(contact.SurName, contact1.SurName);
+                Assert.Equal(contact.Email, contact1.Email);
+                Assert.Equal(contact.DateOfBirth, contact1.DateOfBirth);
             }
         }
 
@@ -55,23 +44,9 @@ namespace AddressBook.UnitTests.Queries
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                var contact1 = GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today);
 
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
-                });
+                context.Contacts.Add(contact1);
 
                 await context.SaveChangesAsync();
 
@@ -80,7 +55,7 @@ namespace AddressBook.UnitTests.Queries
                 var contact = await handler.Handle(new GetContactByIdQuery { Id = 3 }, new CancellationToken());
 
                 // Assert
-                Assert.True(contact == null);
+                Assert.Null(contact);
             }
         }
     }

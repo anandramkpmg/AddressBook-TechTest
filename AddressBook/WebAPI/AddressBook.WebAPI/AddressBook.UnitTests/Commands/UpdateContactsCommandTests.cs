@@ -17,38 +17,33 @@ namespace AddressBook.UnitTests.Commands
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                context.Contacts.Add(GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today));
 
                 await context.SaveChangesAsync();
 
                 var handler = new UpdateContactsCommandHandler(context);
 
+                var contact2 = GetContact(1, "Alpha", "B", "test@gmail.com", DateTime.Today);
+
                 var command = new UpdateContactsCommand
                 {
-                    FirstName = "Alpha",
-                    SurName = "B",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
+                    FirstName = contact2.FirstName,
+                    SurName = contact2.SurName,
+                    Email = contact2.Email,
+                    DateOfBirth = contact2.DateOfBirth,
+                    Id = contact2.Id
                 };
 
                 // Act
                 var id = await handler.Handle(command, new CancellationToken());
 
-                var updatedContact = context.Contacts.FirstOrDefault(x => x.Id == command.Id);
+                var updatedContact = context.Contacts.First(x => x.Id == id);
 
                 // Assert
-                Assert.True(updatedContact.FirstName == "Alpha");
-                Assert.True(updatedContact.SurName == "B");
-                Assert.True(updatedContact.Email == "test@gmail.com");
-                Assert.True(updatedContact.DateOfBirth == DateTime.Today);
+                Assert.Equal(contact2.FirstName, updatedContact.FirstName);
+                Assert.Equal(contact2.SurName, updatedContact.SurName);
+                Assert.Equal(contact2.Email, updatedContact.Email);
+                Assert.Equal(contact2.DateOfBirth, updatedContact.DateOfBirth);
             }
         }
 
@@ -57,31 +52,26 @@ namespace AddressBook.UnitTests.Commands
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                context.Contacts.Add(GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today));
 
                 await context.SaveChangesAsync();
 
                 var handler = new UpdateContactsCommandHandler(context);
 
+                var contact2 = GetContact(2, "Alpha", "B", "test1@gmail.com", DateTime.Today);
+
                 var command = new UpdateContactsCommand
                 {
-                    FirstName = "Alpha",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
+                    FirstName = contact2.FirstName,
+                    SurName = contact2.SurName,
+                    Email = contact2.Email,
+                    DateOfBirth = contact2.DateOfBirth,
+                    Id = contact2.Id
                 };
 
                 var id = await handler.Handle(command, new CancellationToken());
 
-                var updatedContact = context.Contacts.FirstOrDefault(x => x.Id == command.Id);
+                var updatedContact = context.Contacts.FirstOrDefault(x => x.Id == id);
 
                 Assert.Null(updatedContact);
             }
@@ -92,23 +82,9 @@ namespace AddressBook.UnitTests.Commands
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Alpha",
-                    SurName = "A",
-                    Email = "test@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 1
-                });
+                context.Contacts.Add(GetContact(1, "Alpha", "A", "test@gmail.com", DateTime.Today));
 
-                context.Contacts.Add(new Contact
-                {
-                    FirstName = "Beta",
-                    SurName = "B",
-                    Email = "test1@gmail.com",
-                    DateOfBirth = DateTime.Today,
-                    Id = 2
-                });
+                context.Contacts.Add(GetContact(2, "Beta", "B", "test1@gmail.com", DateTime.Today));
 
                 await context.SaveChangesAsync();
 
