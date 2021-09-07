@@ -53,7 +53,7 @@ namespace AddressBook.UnitTests.Commands
         }
 
         [Fact]
-        public async void UpdateContactsCommand_CandidateNotFound_DefaultReturned()
+        public async void UpdateContactsCommand_CandidateNotFound_DefaultCandidateReturned()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {
@@ -88,7 +88,7 @@ namespace AddressBook.UnitTests.Commands
         }
 
         [Fact]
-        public async void UpdateContactsCommand_EmailIdAlreadyExists_CandidateUpdated()
+        public async void UpdateContactsCommand_EmailIdAlreadyExists_ThrowsContactExistsException()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {

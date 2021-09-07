@@ -37,7 +37,7 @@ namespace AddressBook.UnitTests.Queries
                 await context.SaveChangesAsync();
 
                 // Act
-                var handler = new GetProductByIdQueryHandler(context);
+                var handler = new GetContactByIdQueryHandler(context);
                 var contact = await handler.Handle(new GetContactByIdQuery { Id = 1 }, new CancellationToken());
 
                 // Assert
@@ -76,7 +76,7 @@ namespace AddressBook.UnitTests.Queries
                 await context.SaveChangesAsync();
 
                 // Act
-                var handler = new GetProductByIdQueryHandler(context);
+                var handler = new GetContactByIdQueryHandler(context);
                 var contact = await handler.Handle(new GetContactByIdQuery { Id = 3 }, new CancellationToken());
 
                 // Assert

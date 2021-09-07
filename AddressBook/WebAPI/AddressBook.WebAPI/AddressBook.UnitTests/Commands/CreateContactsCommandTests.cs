@@ -13,7 +13,7 @@ namespace AddressBook.UnitTests.Commands
     public class CreateContactsCommandTests : TestBase
     {
         [Fact]
-        public async void CreateContactsCommand_NoDuplicateFound_CandidateAdded()
+        public async void CreateContactsCommand_NoDuplicateEmailFound_CandidateAdded()
         {
             using (var context = new ContactsDbContext(CreateNewContextOptions()))
             {

@@ -1,10 +1,8 @@
-﻿using AddressBook.WebAPI.Features.Contacts.Queries;
+﻿using AddressBook.WebAPI.Features.Contacts.Commands;
+using AddressBook.WebAPI.Features.Contacts.Queries;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
-using AddressBook.WebAPI.Features.Contacts.Commands;
 
 namespace AddressBook.WebAPI.Controllers
 {
@@ -13,24 +11,27 @@ namespace AddressBook.WebAPI.Controllers
     public class ContactsController : ControllerBase
     {
         private IMediator _mediator;
-        protected IMediator Mediator => _mediator ??= HttpContext.RequestServices.GetService<IMediator>();
+        public ContactsController(IMediator mediator)
+        {
+            _mediator = mediator;
+        }
 
         [HttpGet("{id:int}")]
         public async Task<IActionResult> GetById(int id)
         {
-            return Ok(await Mediator.Send(new GetContactByIdQuery { Id = id }));
+            return Ok(await _mediator.Send(new GetContactByIdQuery { Id = id }));
         }
 
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await Mediator.Send(new GetAllContactsQuery()));
+            return Ok(await _mediator.Send(new GetAllContactsQuery()));
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(CreateContactsCommand command)
         {
-            return Ok(await Mediator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
 
         [HttpPut("{id}")]
@@ -40,7 +41,7 @@ namespace AddressBook.WebAPI.Controllers
             {
                 return BadRequest();
             }
-            return Ok(await Mediator.Send(command));
+            return Ok(await _mediator.Send(command));
         }
     }
 }

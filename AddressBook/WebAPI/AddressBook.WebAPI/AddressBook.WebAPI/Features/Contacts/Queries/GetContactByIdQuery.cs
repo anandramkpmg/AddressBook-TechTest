@@ -11,11 +11,11 @@ namespace AddressBook.WebAPI.Features.Contacts.Queries
     {
         public int Id { get; set; }
 
-        public class GetProductByIdQueryHandler : IRequestHandler<GetContactByIdQuery, Contact>
+        public class GetContactByIdQueryHandler : IRequestHandler<GetContactByIdQuery, Contact>
         {
 
             private readonly IContactsDbContext _context;
-            public GetProductByIdQueryHandler(IContactsDbContext context)
+            public GetContactByIdQueryHandler(IContactsDbContext context)
             {
                 _context = context;
             }

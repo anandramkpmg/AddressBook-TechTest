@@ -46,6 +46,7 @@ namespace AddressBook.WebAPI
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(LoggingBehaviour<,>));
             services.AddSwaggerGen();
+            services.AddMediatR(typeof(Startup));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
