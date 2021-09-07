@@ -24,7 +24,12 @@ namespace AddressBook.WebAPI.Features.Contacts.Commands
                 _context = context;
             }
             public async Task<int> Handle(UpdateContactsCommand command, CancellationToken cancellationToken)
-            {
+            {                 
+                if (_context.Contacts.Any(x => x.Email.ToLower() == command.Email.ToLower() && x.Id != command.Id))
+                {
+                    throw new ContactExistsException(string.Format("User contact already exists with the email id {0}", command.Email));
+                }
+
                 var contact = _context.Contacts.Where(a => a.Id == command.Id).FirstOrDefault();
 
                 if (contact == null)

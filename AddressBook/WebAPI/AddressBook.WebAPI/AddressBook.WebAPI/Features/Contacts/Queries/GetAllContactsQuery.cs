@@ -20,10 +20,6 @@ namespace AddressBook.WebAPI.Features.Contacts.Queries
             public async Task<IEnumerable<Contact>> Handle(GetAllContactsQuery query, CancellationToken cancellationToken)
             {
                 var contactsList = await _context.Contacts.ToListAsync();
-                if (contactsList == null)
-                {
-                    return null;
-                }
                 return contactsList.AsReadOnly();
             }
         }
