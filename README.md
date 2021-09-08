@@ -45,11 +45,11 @@ Address Book WEB API is developed following CQRS pattern with MediatR. CQRS Comm
   
 Followed CQRS, so you have the Single Responsibility Principle by design and you get the ability to design a loosely coupled architecture.
 
-Used FluentValidation with pipeline behaviours for data validations. It you to keep validations seperate from domain model, easy to plug in/re-use validations 
+Used FluentValidation with pipeline behaviours for data validations. It helps you to keep validations seperate from domain model, easy to plug in/re-use validations 
 in any models.
 
-Address book front end follows MVVM patterns, used Angular material.
+Address book front end is developed following MVVM patterns.
 
-
+![architecture_diagram](https://user-images.githubusercontent.com/8025466/132505127-6fb31c3f-8d0c-4d89-9cd1-6cd3f425377b.png)
 
 
